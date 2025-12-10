@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>RifqyTranslate V8 - Super App</title>
+    <title>RifqyVoxText</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
@@ -11,112 +11,125 @@
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         
-        /* Animasi Mic */
         .mic-active-blue { animation: pulse-blue 1.5s infinite; background-color: #2563eb !important; border-color: #60a5fa !important; transform: scale(1.05); }
         .mic-active-orange { animation: pulse-orange 1.5s infinite; background-color: #ea580c !important; border-color: #fb923c !important; transform: scale(1.05); }
         @keyframes pulse-blue { to { box-shadow: 0 0 0 15px rgba(59, 130, 246, 0); } }
         @keyframes pulse-orange { to { box-shadow: 0 0 0 15px rgba(249, 115, 22, 0); } }
 
-        /* Loader */
-        .typing-indicator span { display: inline-block; width: 4px; height: 4px; background-color: #a855f7; border-radius: 50%; animation: typing 1s infinite; margin: 0 1px; }
+        .typing-indicator span { display: inline-block; width: 6px; height: 6px; background-color: #a855f7; border-radius: 50%; animation: typing 1s infinite; margin: 0 2px; }
         .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
         .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
-        @keyframes typing { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+        @keyframes typing { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+
+        select { 
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 0.5rem center;
+            background-repeat: no-repeat;
+            background-size: 1.2em 1.2em;
+        }
     </style>
 </head>
 <body class="bg-black text-white h-dvh w-full flex flex-col overflow-hidden">
 
-    <div class="shrink-0 p-3 bg-black/80 backdrop-blur border-b border-white/10 flex justify-center items-center z-50">
-        <h1 class="text-xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-500 to-orange-500">
-            RifqyTranslate <span class="text-[10px] text-white bg-white/10 px-1.5 py-0.5 rounded ml-1 align-middle border border-white/10">V8</span>
+    <div class="shrink-0 p-3 bg-black/80 backdrop-blur border-b border-white/10 flex justify-center items-center z-50 shadow-md">
+        <h1 class="text-xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-500 to-orange-500 tracking-wide">
+            RifqyVoxText
         </h1>
     </div>
 
     <main class="flex-grow relative overflow-hidden">
         
         <section id="modeText" class="w-full h-full flex flex-col p-4 md:p-8 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 to-black overflow-y-auto no-scrollbar">
-            
             <div class="max-w-3xl w-full mx-auto space-y-4">
-                <div class="bg-white/5 border border-white/10 rounded-2xl p-4 flex flex-col">
+                <div class="bg-white/5 border border-white/10 rounded-2xl p-4 flex flex-col shadow-lg">
                     <div class="flex justify-between items-center mb-2">
-                        <span class="text-xs font-bold text-slate-400">INPUT</span>
+                        <span class="text-xs font-bold text-slate-400">INPUT TEKS</span>
                         <div class="text-[10px] bg-blue-500/10 text-blue-400 px-2 py-0.5 rounded border border-blue-500/20">Auto Detect</div>
                     </div>
-                    <textarea id="txtInput" class="w-full bg-transparent outline-none text-lg resize-none placeholder-slate-600 min-h-[120px]" placeholder="Ketik teks di sini..."></textarea>
+                    <textarea id="txtInput" class="w-full bg-transparent outline-none text-lg resize-none placeholder-slate-600 min-h-[120px]" placeholder="Ketik sesuatu di sini..."></textarea>
                 </div>
 
-                <div class="flex justify-center items-center">
-                    <div class="p-2 rounded-full bg-white/5 border border-white/10">
-                        <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                <div class="flex justify-center items-center py-2">
+                    <div class="p-2 rounded-full bg-white/5 border border-white/10 text-slate-500">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
                     </div>
                 </div>
 
-                <div class="bg-slate-900/50 border border-white/10 rounded-2xl p-4 flex flex-col relative min-h-[180px]">
-                    <div class="flex justify-between items-center mb-2">
-                        <select id="txtTargetLang" class="bg-black border border-white/10 rounded px-2 py-1 text-xs outline-none focus:border-purple-500 max-w-[150px]">
+                <div class="bg-slate-900/60 border border-white/10 rounded-2xl p-4 flex flex-col relative min-h-[180px] shadow-lg backdrop-blur-sm">
+                    <div class="flex justify-between items-center mb-2 z-10">
+                        <select id="txtTargetLang" class="bg-black/50 border border-white/20 rounded-lg px-2 py-1 text-sm font-semibold outline-none focus:border-purple-500 max-w-[180px] cursor-pointer">
                             </select>
                         <div id="txtBadge" class="hidden text-[10px] px-2 py-0.5 rounded-full border border-green-500/30 bg-green-500/10 text-green-400">Google</div>
                     </div>
                     
-                    <div class="relative flex-grow">
-                        <div id="txtLoader" class="hidden absolute top-0 left-0"><div class="typing-indicator"><span></span><span></span><span></span></div></div>
-                        <textarea id="txtOutput" readonly class="w-full h-full bg-transparent outline-none text-lg resize-none text-purple-100 placeholder-slate-700" placeholder="Terjemahan..."></textarea>
+                    <div class="relative flex-grow z-0">
+                        <div id="txtLoader" class="hidden absolute inset-0 flex items-center justify-center">
+                            <div class="typing-indicator"><span></span><span></span><span></span></div>
+                        </div>
+                        <textarea id="txtOutput" readonly class="w-full h-full bg-transparent outline-none text-lg resize-none text-purple-100 placeholder-slate-700/50" placeholder=""></textarea>
                     </div>
 
                     <div class="flex justify-end gap-2 mt-2 pt-2 border-t border-white/5">
-                        <button onclick="textSpeak()" class="p-2 hover:bg-white/10 rounded-full text-slate-400 hover:text-white transition"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg></button>
-                        <button onclick="textCopy()" class="p-2 hover:bg-white/10 rounded-full text-slate-400 hover:text-white transition"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg></button>
+                        <button onclick="textSpeak()" class="p-2 hover:bg-white/10 rounded-full text-slate-400 hover:text-purple-400 transition" title="Dengarkan"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg></button>
+                        <button onclick="textCopy()" class="p-2 hover:bg-white/10 rounded-full text-slate-400 hover:text-blue-400 transition" title="Salin"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg></button>
                     </div>
                 </div>
 
-                <button onclick="runTextTranslate()" class="w-full py-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl font-bold shadow-lg shadow-purple-500/20 active:scale-95 transition">TERJEMAHKAN</button>
+                <button onclick="runTextTranslate()" class="w-full py-3.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl font-bold shadow-lg shadow-purple-500/25 active:scale-95 transition hover:shadow-purple-500/40 mt-4 tracking-wide text-sm">TERJEMAHKAN</button>
             </div>
         </section>
 
 
-        <section id="modeVoice" class="w-full h-full hidden flex-col md:flex-row">
-            <div class="flex-1 flex flex-col h-1/2 md:h-full bg-slate-900 border-b md:border-b-0 md:border-r border-white/10 relative">
-                <div class="shrink-0 p-3 bg-slate-900/80 backdrop-blur border-b border-white/5 flex flex-col justify-center h-[60px]">
-                    <div class="flex items-center gap-2 mb-1"><span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span><label class="text-[10px] font-bold text-blue-400 uppercase">Bahasa Saya</label></div>
-                    <select id="voiceLangA" class="w-full bg-transparent text-white text-sm outline-none font-bold cursor-pointer"></select>
+        <section id="modeVoice" class="w-full h-full hidden flex-col md:flex-row bg-black">
+            
+            <div class="flex-1 flex flex-col h-1/2 md:h-full bg-slate-900 border-b md:border-b-0 md:border-r border-white/10 relative overflow-hidden">
+                <div class="shrink-0 z-20 w-full p-3 bg-slate-900/90 backdrop-blur border-b border-white/5 flex flex-col justify-center h-[70px]">
+                    <div class="flex items-center gap-2 mb-1 px-1">
+                        <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
+                        <label class="text-[10px] font-bold text-blue-400 uppercase tracking-widest">Bahasa Saya</label>
+                    </div>
+                    <select id="voiceLangA" class="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-1.5 text-white text-sm outline-none focus:border-blue-500 transition font-semibold cursor-pointer"></select>
                 </div>
                 <div class="flex-1 relative w-full overflow-hidden bg-gradient-to-b from-blue-900/10 to-transparent">
-                    <div class="w-full h-full overflow-y-auto no-scrollbar flex flex-col items-center justify-center p-4 text-center">
-                        <p id="voiceTextA" class="text-xl md:text-2xl font-bold text-white leading-snug break-words max-w-lg">...</p>
-                        <p id="voiceTransA" class="text-sm md:text-base text-blue-300 italic mt-2 font-medium break-words max-w-lg"></p>
+                    <div class="w-full h-full overflow-y-auto no-scrollbar flex flex-col items-center justify-center p-4 text-center pb-24">
+                        <p id="voiceTextA" class="text-xl md:text-3xl font-bold text-white leading-snug break-words max-w-lg transition-all">...</p>
+                        <p id="voiceTransA" class="text-sm md:text-lg text-blue-300 italic mt-2 font-medium break-words max-w-lg"></p>
                     </div>
                 </div>
-                <div class="shrink-0 p-3 flex justify-center items-center bg-slate-900/50 backdrop-blur h-[80px]">
-                    <button id="btnVoiceA" onclick="startVoice('A')" class="w-14 h-14 rounded-full bg-slate-800 border border-blue-500/30 flex items-center justify-center shadow-lg active:scale-95 transition text-blue-400 hover:text-white hover:bg-blue-600/20">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path></svg>
+                <div class="shrink-0 z-20 w-full p-3 flex justify-center items-center bg-slate-900/50 backdrop-blur-sm border-t border-white/5 h-[80px] md:h-[100px]">
+                    <button id="btnVoiceA" onclick="startVoice('A')" class="w-14 h-14 md:w-16 md:h-16 rounded-full bg-slate-800 border border-blue-500/30 flex items-center justify-center shadow-lg active:scale-95 transition text-blue-400 hover:text-white hover:bg-blue-600/20">
+                        <svg class="w-6 h-6 md:w-7 md:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path></svg>
                     </button>
                 </div>
             </div>
 
-            <div class="flex-1 flex flex-col h-1/2 md:h-full bg-black relative">
-                <div class="shrink-0 p-3 bg-black/80 backdrop-blur border-b border-white/5 flex flex-col justify-center items-end h-[60px]">
-                    <div class="flex items-center gap-2 mb-1"><label class="text-[10px] font-bold text-orange-400 uppercase">Lawan Bicara</label><span class="w-1.5 h-1.5 rounded-full bg-orange-500"></span></div>
-                    <select id="voiceLangB" class="w-full bg-transparent text-white text-sm outline-none font-bold cursor-pointer text-right" dir="rtl"></select>
+            <div class="flex-1 flex flex-col h-1/2 md:h-full bg-black relative overflow-hidden">
+                <div class="shrink-0 z-20 w-full p-3 bg-black/90 backdrop-blur border-b border-white/5 flex flex-col justify-center items-end h-[70px]">
+                    <div class="flex items-center gap-2 mb-1 px-1">
+                        <label class="text-[10px] font-bold text-orange-400 uppercase tracking-widest">Lawan Bicara</label>
+                        <span class="w-1.5 h-1.5 rounded-full bg-orange-500"></span>
+                    </div>
+                    <select id="voiceLangB" class="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-1.5 text-white text-sm outline-none focus:border-orange-500 transition font-semibold cursor-pointer text-right" dir="rtl"></select>
                 </div>
                 <div class="flex-1 relative w-full overflow-hidden bg-gradient-to-t from-orange-900/10 to-transparent">
-                    <div class="w-full h-full overflow-y-auto no-scrollbar flex flex-col items-center justify-center p-4 text-center">
-                        <p id="voiceTextB" class="text-xl md:text-2xl font-bold text-white leading-snug break-words max-w-lg">...</p>
-                        <p id="voiceTransB" class="text-sm md:text-base text-orange-300 italic mt-2 font-medium break-words max-w-lg"></p>
+                    <div class="w-full h-full overflow-y-auto no-scrollbar flex flex-col items-center justify-center p-4 text-center pb-24">
+                        <p id="voiceTextB" class="text-xl md:text-3xl font-bold text-white leading-snug break-words max-w-lg transition-all">...</p>
+                        <p id="voiceTransB" class="text-sm md:text-lg text-orange-300 italic mt-2 font-medium break-words max-w-lg"></p>
                     </div>
                 </div>
-                <div class="shrink-0 p-3 flex justify-center items-center bg-black/50 backdrop-blur h-[80px]">
-                    <button id="btnVoiceB" onclick="startVoice('B')" class="w-14 h-14 rounded-full bg-slate-900 border border-orange-500/30 flex items-center justify-center shadow-lg active:scale-95 transition text-orange-400 hover:text-white hover:bg-orange-600/20">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path></svg>
+                <div class="shrink-0 z-20 w-full p-3 flex justify-center items-center bg-black/50 backdrop-blur-sm border-t border-white/5 h-[80px] md:h-[100px]">
+                    <button id="btnVoiceB" onclick="startVoice('B')" class="w-14 h-14 md:w-16 md:h-16 rounded-full bg-slate-900 border border-orange-500/30 flex items-center justify-center shadow-lg active:scale-95 transition text-orange-400 hover:text-white hover:bg-orange-600/20">
+                        <svg class="w-6 h-6 md:w-7 md:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path></svg>
                     </button>
                 </div>
             </div>
             
-            <div id="voiceStatus" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black/60 backdrop-blur px-3 py-1 rounded-full text-[10px] font-mono text-slate-300 border border-white/10 z-50 pointer-events-none opacity-0 transition">Ready</div>
+            <div id="voiceStatus" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-slate-800/90 backdrop-blur px-4 py-1.5 rounded-full text-[10px] font-bold text-slate-400 border border-white/10 z-50 pointer-events-none opacity-0 transition-opacity tracking-wider uppercase shadow-xl">Ready</div>
         </section>
 
     </main>
 
-    <nav class="shrink-0 bg-black border-t border-white/10 h-[60px] flex justify-around items-center z-50">
+    <nav class="shrink-0 bg-black border-t border-white/10 h-[60px] flex justify-around items-center z-50 shadow-[0_-5px_15px_rgba(0,0,0,0.5)]">
         <button onclick="switchTab('text')" id="tabText" class="flex flex-col items-center gap-1 p-2 text-blue-400 transition">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path></svg>
             <span class="text-[10px] font-bold">TEKS</span>
@@ -127,6 +140,7 @@
         </button>
     </nav>
 
+    <script src="languages.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
